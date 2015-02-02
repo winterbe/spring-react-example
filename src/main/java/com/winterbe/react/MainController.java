@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Benjamin Winterberg
  */
 @Controller
-public class GreetingController {
+public class MainController {
 
     @RequestMapping("/")
     public ModelAndView index() {
