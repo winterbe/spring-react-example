@@ -7,6 +7,10 @@ public class Comment {
     private String author;
     private String text;
 
+    public Comment() {
+
+    }
+
     public Comment(String author, String text) {
         this.author = author;
         this.text = text;
