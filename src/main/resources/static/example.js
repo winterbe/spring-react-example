@@ -100,13 +100,7 @@ var CommentBox = React.createClass({
     }
 });
 
-if (document) {
-    React.render(
-        <CommentBox url='comments.json' pollInterval={5000} />,
-        document.getElementById("content")
-    );
-} else {
-    React.renderToString(
-        <CommentBox url='comments.json' pollInterval={5000} />
-    );
-}
+React.render(
+    <CommentBox url='comments.json' pollInterval={5000} />,
+    document.getElementById("content")
+);
