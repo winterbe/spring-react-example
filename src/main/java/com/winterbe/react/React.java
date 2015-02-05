@@ -5,6 +5,7 @@ import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Reader;
 
 public class React {
 
@@ -24,12 +25,17 @@ public class React {
 
     public String renderCommentBox() {
         try {
-            InputStream in = getClass().getClassLoader().getResourceAsStream("static/build/example.js");
-            Object html = nashorn.eval(new InputStreamReader(in));
+            nashorn.eval(readFromClassPath("static/example.js"));
+            Object html = nashorn.eval(readFromClassPath("static/renderToString.js"));
             return String.valueOf(html);
         }
         catch (ScriptException e) {
             throw new IllegalStateException("failed to render react component", e);
         }
+    }
+
+    private Reader readFromClassPath(String path) {
+        InputStream in = getClass().getClassLoader().getResourceAsStream(path);
+        return new InputStreamReader(in);
     }
 }
