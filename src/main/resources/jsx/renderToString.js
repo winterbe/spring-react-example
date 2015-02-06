@@ -1,5 +1,6 @@
-var renderCommentBox = function (title) {
+var renderCommentBox = function (data) {
+    var comments = Java.from(data);
     return React.renderToString(
-        <CommentBox title={title} url='comments.json' pollInterval={5000} />
+        <CommentBox data={comments} url='comments.json' pollInterval={5000} />
     );
 };

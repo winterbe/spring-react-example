@@ -7,6 +7,7 @@ import javax.script.ScriptException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.List;
 
 public class React {
 
@@ -15,21 +16,20 @@ public class React {
     public React() {
         try {
             nashorn = (NashornScriptEngine) new ScriptEngineManager().getEngineByName("nashorn");
-            nashorn.eval("var window = this;");     // workaround for non-existing window
-            nashorn.eval("load('https://cdnjs.cloudflare.com/ajax/libs/react/0.12.2/react.js')");
-            nashorn.eval("load('http://cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js')");
+            nashorn.eval(readFromClassPath("server/nashorn-polyfill.js"));
+            nashorn.eval(readFromClassPath("static/vendor/react.js"));
+            nashorn.eval(readFromClassPath("static/vendor/showdown.min.js"));
         }
         catch (ScriptException e) {
             throw new IllegalStateException("could not init nashorn", e);
         }
     }
 
-    public String renderCommentBox() {
+    public String renderCommentBox(List<Comment> comments) {
         try {
             nashorn.eval(readFromClassPath("static/example.js"));
             nashorn.eval(readFromClassPath("static/renderToString.js"));
-            String title = "Comments (rendered by server)";
-            Object html = nashorn.invokeFunction("renderCommentBox", title);
+            Object html = nashorn.invokeFunction("renderCommentBox", comments);
             return String.valueOf(html);
         }
         catch (Exception e) {

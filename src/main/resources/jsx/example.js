@@ -83,7 +83,7 @@ var CommentBox = React.createClass({
         });
     },
     getInitialState: function () {
-        return {data: []};
+        return {data: this.props.data};
     },
     componentDidMount: function () {
         this.loadCommentsFromServer();
@@ -92,7 +92,7 @@ var CommentBox = React.createClass({
     render: function () {
         return (
             <div className="commentBox">
-                <h1>{this.props.title}</h1>
+                <h1>Comments</h1>
                 <CommentList data={this.state.data} />
                 <CommentForm onCommentSubmit={this.handleCommentSubmit} />
             </div>
