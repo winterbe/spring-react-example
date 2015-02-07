@@ -28,8 +28,7 @@ public class React {
     public String renderCommentBox(List<Comment> comments) {
         try {
             nashorn.eval(readFromClassPath("static/commentBox.js"));
-            nashorn.eval(readFromClassPath("static/renderToString.js"));
-            Object html = nashorn.invokeFunction("renderCommentBox", comments);
+            Object html = nashorn.invokeFunction("renderServer", comments);
             return String.valueOf(html);
         }
         catch (Exception e) {

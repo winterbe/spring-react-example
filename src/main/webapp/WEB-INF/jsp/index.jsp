@@ -9,6 +9,10 @@
 <body>
 <div id="content">${content}</div>
 <script type="text/javascript" src="commentBox.js"></script>
-<%--<script type="text/javascript" src="renderToDom.js"></script>--%>
+<script type="text/javascript">
+    $(function () {
+        renderClient(${data});
+    });
+</script>
 </body>
 </html>

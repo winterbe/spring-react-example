@@ -99,3 +99,18 @@ var CommentBox = React.createClass({
         );
     }
 });
+
+var renderClient = function (comments) {
+    var data = comments || [];
+    React.render(
+        <CommentBox data={data} url='comments.json' pollInterval={5000} />,
+        document.getElementById("content")
+    );
+};
+
+var renderServer = function (comments) {
+    var data = Java.from(comments);
+    return React.renderToString(
+        <CommentBox data={data} url='comments.json' pollInterval={5000} />
+    );
+};
