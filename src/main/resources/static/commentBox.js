@@ -37,9 +37,9 @@ var Comment = React.createClass({displayName: "Comment",
 
 var CommentList = React.createClass({displayName: "CommentList",
     render: function () {
-        var commentNodes = this.props.data.map(function (comment) {
+        var commentNodes = this.props.data.map(function (comment, index) {
             return (
-                React.createElement(Comment, {author: comment.author}, 
+                React.createElement(Comment, {author: comment.author, key: index}, 
                     comment.text
                 )
             );
@@ -55,19 +55,20 @@ var CommentList = React.createClass({displayName: "CommentList",
 var CommentBox = React.createClass({displayName: "CommentBox",
     handleCommentSubmit: function (comment) {
         var comments = this.state.data;
-        var newComments = comments.push(comment);
-        this.setState({data: newComments});
-        $.ajax({
-            url: this.props.url,
-            dataType: 'json',
-            type: 'POST',
-            data: comment,
-            success: function (data) {
-                this.setState({data: data});
-            }.bind(this),
-            error: function (xhr, status, err) {
-                console.error(this.props.url, status, err.toString());
-            }.bind(this)
+        comments.push(comment);
+        this.setState({data: comments}, function () {
+            $.ajax({
+                url: this.props.url,
+                dataType: 'json',
+                type: 'POST',
+                data: comment,
+                success: function (data) {
+                    this.setState({data: data});
+                }.bind(this),
+                error: function (xhr, status, err) {
+                    console.error(this.props.url, status, err.toString());
+                }.bind(this)
+            });
         });
     },
     loadCommentsFromServer: function () {
@@ -83,7 +84,7 @@ var CommentBox = React.createClass({displayName: "CommentBox",
         });
     },
     getInitialState: function () {
-        return {data: this.props.data};
+        return {data: []};
     },
     componentDidMount: function () {
         this.loadCommentsFromServer();
