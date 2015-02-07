@@ -16,7 +16,7 @@ public class React {
     public React() {
         try {
             nashorn = (NashornScriptEngine) new ScriptEngineManager().getEngineByName("nashorn");
-            nashorn.eval(readFromClassPath("server/nashorn-polyfill.js"));
+            nashorn.eval(readFromClassPath("static/nashorn-polyfill.js"));
             nashorn.eval(readFromClassPath("static/vendor/react.js"));
             nashorn.eval(readFromClassPath("static/vendor/showdown.min.js"));
         }
@@ -27,7 +27,7 @@ public class React {
 
     public String renderCommentBox(List<Comment> comments) {
         try {
-            nashorn.eval(readFromClassPath("static/example.js"));
+            nashorn.eval(readFromClassPath("static/commentBox.js"));
             nashorn.eval(readFromClassPath("static/renderToString.js"));
             Object html = nashorn.invokeFunction("renderCommentBox", comments);
             return String.valueOf(html);

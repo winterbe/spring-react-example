@@ -8,7 +8,7 @@
 </head>
 <body>
 <div id="content">${content}</div>
-<script type="text/javascript" src="example.js"></script>
+<script type="text/javascript" src="commentBox.js"></script>
 <%--<script type="text/javascript" src="renderToDom.js"></script>--%>
 </body>
 </html>
