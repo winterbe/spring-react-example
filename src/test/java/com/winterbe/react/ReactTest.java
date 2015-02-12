@@ -1,11 +1,17 @@
 package com.winterbe.react;
 
 import org.hamcrest.Matchers;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.startsWith;
+import static org.junit.Assert.assertThat;
 
 public class ReactTest {
 
@@ -18,7 +24,10 @@ public class ReactTest {
         React react = new React();
         String html = react.renderCommentBox(comments);
 
-        Assert.assertThat(html, Matchers.startsWith("<div"));
+        assertThat(html, startsWith("<div"));
+
+        Document doc = Jsoup.parse(html);
+        assertThat(doc.select("div.comment").size(), is(2));
     }
 
 }
