@@ -16,9 +16,10 @@ public class React {
     public React() {
         try {
             nashorn = (NashornScriptEngine) new ScriptEngineManager().getEngineByName("nashorn");
-            nashorn.eval(readFromClassPath("static/nashorn-polyfill.js"));
-            nashorn.eval(readFromClassPath("static/vendor/react.js"));
-            nashorn.eval(readFromClassPath("static/vendor/showdown.min.js"));
+            nashorn.eval(read("static/nashorn-polyfill.js"));
+            nashorn.eval(read("static/vendor/react.js"));
+            nashorn.eval(read("static/vendor/showdown.min.js"));
+            nashorn.eval(read("static/commentBox.js"));
         }
         catch (ScriptException e) {
             throw new IllegalStateException("could not init nashorn", e);
@@ -27,7 +28,6 @@ public class React {
 
     public String renderCommentBox(List<Comment> comments) {
         try {
-            nashorn.eval(readFromClassPath("static/commentBox.js"));
             Object html = nashorn.invokeFunction("renderServer", comments);
             return String.valueOf(html);
         }
@@ -36,7 +36,7 @@ public class React {
         }
     }
 
-    private Reader readFromClassPath(String path) {
+    private Reader read(String path) {
         InputStream in = getClass().getClassLoader().getResourceAsStream(path);
         return new InputStreamReader(in);
     }
