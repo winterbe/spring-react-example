@@ -11,24 +11,25 @@ import java.util.List;
 
 public class React {
 
-    private NashornScriptEngine nashorn;
-
-    public React() {
-        try {
-            nashorn = (NashornScriptEngine) new ScriptEngineManager().getEngineByName("nashorn");
-            nashorn.eval(read("static/nashorn-polyfill.js"));
-            nashorn.eval(read("static/vendor/react.js"));
-            nashorn.eval(read("static/vendor/showdown.min.js"));
-            nashorn.eval(read("static/commentBox.js"));
+    private ThreadLocal<NashornScriptEngine> engineHolder = new ThreadLocal<NashornScriptEngine>() {
+        @Override
+        protected NashornScriptEngine initialValue() {
+            NashornScriptEngine nashornScriptEngine = (NashornScriptEngine) new ScriptEngineManager().getEngineByName("nashorn");
+            try {
+                nashornScriptEngine.eval(read("static/nashorn-polyfill.js"));
+                nashornScriptEngine.eval(read("static/vendor/react.js"));
+                nashornScriptEngine.eval(read("static/vendor/showdown.min.js"));
+                nashornScriptEngine.eval(read("static/commentBox.js"));
+            } catch (ScriptException e) {
+                throw new RuntimeException(e);
+            }
+            return nashornScriptEngine;
         }
-        catch (ScriptException e) {
-            throw new IllegalStateException("could not init nashorn", e);
-        }
-    }
+    };
 
-    public String renderCommentBox(List<Comment> comments) {
+    public  String renderCommentBox(List<Comment> comments) {
         try {
-            Object html = nashorn.invokeFunction("renderServer", comments);
+            Object html = engineHolder.get().invokeFunction("renderServer", comments);
             return String.valueOf(html);
         }
         catch (Exception e) {
