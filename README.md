@@ -7,4 +7,4 @@ The `CommentBox` main view is isomorphic: HTML is initially rendered on the serv
 
 For further explanation read this [blog post](http://winterbe.com/posts/2015/02/16/isomorphic-react-webapps-on-the-jvm/).
 
-See also [winterbe/react-sample](https://github.com/winterbe/react-samples) for a bunch of client-side React.js examples.
+See also [winterbe/react-samples](https://github.com/winterbe/react-samples) for a bunch of client-side React.js examples.
