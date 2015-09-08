@@ -4,3 +4,8 @@
 target
 .module-cache
 out
+
+# Eclipse IDE
+.classpath
+.project
+.settings
