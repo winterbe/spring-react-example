@@ -5,6 +5,6 @@ Example of the official [React.js Tutorial](http://facebook.github.io/react/docs
 
 The `CommentBox` main view is isomorphic: HTML is initially rendered on the server with Nashorn by utilizing `React.renderToString`. All interactive DOM manipulations are handled by React directly in the browser.
 
-For further explanation read this [blog post](http://winterbe.com/posts/2015/02/16/isomorphic-react-webapps-on-the-jvm/).
+For further explanation read this [blog post](http://winterbe.com/posts/2015/02/16/isomorphic-react-webapps-on-the-jvm/) and [follow me on Twitter](https://twitter.com/winterbe_).
 
 See also [winterbe/react-samples](https://github.com/winterbe/react-samples) for a bunch of client-side React.js examples.
